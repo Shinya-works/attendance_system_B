@@ -8,4 +8,7 @@ class User < ApplicationRecord
                     # 定義した条件で有効性を検証
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: true
+  # :passwordのハッシュ化と:password_confirmation使用可、authenticateメソッド使用可
+  has_secure_password
+  validates :password, presence: true, length: {minimum: 6}
 end
