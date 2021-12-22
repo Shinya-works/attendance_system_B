@@ -1,3 +1,21 @@
-// Place all the styles related to the Users controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+// 共通
+.form_h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+// ユーザー新規登録ページ
+.user-table {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.label-user--create {
+  margin-top: 5px;
+}
+
+.btn-user--create {
+  margin-top: 10px;
+}

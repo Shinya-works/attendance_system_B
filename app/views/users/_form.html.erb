@@ -1,0 +1,18 @@
+<%= form_with(model: @user, local: true) do |f| %>
+  <%= f.label :name, class: "label-#{yield(:class_text)}" %>
+  <%= f.text_field :name, class: "form-control" %>
+  
+  <%= f.label :email, class: "label-#{yield(:class_text)}" %>
+  <%= f.email_field :name, class: "form-control" %>
+  
+  <%= f.label :password, class: "label-#{yield(:class_text)}" %>
+  <%= f.password_field :name, class: "form-control" %>
+
+  <%= f.label :password_confirmation, class: "label-#{yield(:class_text)}" %>
+  <%= f.password_field :name, class: "form-control" %>
+  
+  <!--btn-blockでブロック要素化し横幅を依存させる-->
+  <%= f.submit "#{yield(:btn_text)}", class: "btn btn-primary btn-block label-#{yield(:class_text)}" %>
+<% end %>
+  
+  
