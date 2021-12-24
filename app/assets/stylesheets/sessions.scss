@@ -1,7 +1,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-// ログインページ
+// ログインフォーム
 .form_h1 {
   font-size: 3em;
   letter-spacing: -2px;
@@ -15,4 +15,12 @@
 
 .btn-login {
   margin-top: 10px;
+}
+
+.checkbox_login {
+  width: auto;
+  margin-left: 25px;
+  span {
+    font-weight: normal;
+  }
 }

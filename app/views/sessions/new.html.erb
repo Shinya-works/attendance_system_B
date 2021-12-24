@@ -8,8 +8,13 @@
           <%= f.label "メールアドレス", class: "label-login" %>
           <%= f.email_field :email, class: "form-control" %>
           
-          <%= f.label :"パスワード", class: "label-login" %>
+          <%= f.label "パスワード", class: "label-login" %>
           <%= f.password_field :password, class: "form-control" %>
+          
+          <%= f.label :remember_me, class: "checkbox inline checkbox_login", for: "remember-me" do %>
+            <%= f.check_box :remember_me, id: "remember-me" %>
+            <span>ログイン情報を記録する</span>
+          <% end %>
           
           <%= f.submit 'ログイン', class: "btn btn-primary btn-block btn-login" %>
         <% end %>

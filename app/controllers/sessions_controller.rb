@@ -8,15 +8,19 @@ class SessionsController < ApplicationController
     # 代入されたuserが有効かどうか、userのpasswordが有効かどうかを判断する
     if user && user.authenticate(params[:session][:password])
       log_in user
+      # ログイン時にチェックボックスのないようによって永続セッションを保存を決定
+      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       redirect_to root_url
     else
       flash.now[:danger] = '認証に失敗しました。'
       render :new
     end
+    byebug
   end
   
   def destroy
-    log_out
+    # ログインしている場合のみログアウトを実行する
+    log_out if logged_in?
     flash[:success] = "ログアウトしました。"
     redirect_to root_url
   end
