@@ -2,7 +2,7 @@
 @import "bootstrap";
 
 // 共通
-.form_h1 {
+.title_h1 {
   font-size: 3em;
   letter-spacing: -2px;
   margin-bottom: 30px;
@@ -35,6 +35,14 @@
 
 .btn-user--update {
   margin-top: 10px;
+}
+
+// ユーザー一覧
+
+#table-users {
+  td {
+    vertical-align: middle;
+  }
 }
 
 
