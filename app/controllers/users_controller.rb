@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
+before_action :set_user, only: [:show, :edit, :update, :destroy]  
 before_action :logged_in_user, only: [:show, :edit, :update, :destroy]  
+before_action :correct_user, only: [ :edit, :update]  
   
   def new
     @user = User.new
@@ -38,6 +40,11 @@ before_action :logged_in_user, only: [:show, :edit, :update, :destroy]
     
     # beforeフィルター
     
+    # paramsハッシュからユーザーを取得
+    def set_user
+      @user = User.find(params[:id])
+    end
+    
     # ログイン済みのユーザーか確認
     def logged_in_user
       unless logged_in?
@@ -45,4 +52,10 @@ before_action :logged_in_user, only: [:show, :edit, :update, :destroy]
         redirect_to login_url
       end
     end
+    
+    # アクセスしたユーザーが現在ログインしているユーザーか確認します
+    def correct_user
+      redirect_to root_url unless current_user?(@user)
+    end
+    
 end
