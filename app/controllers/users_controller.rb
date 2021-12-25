@@ -48,6 +48,8 @@ before_action :correct_user, only: [ :edit, :update]
     # ログイン済みのユーザーか確認
     def logged_in_user
       unless logged_in?
+        # logged_in_userにはじかれてページ遷移する前にそのページを保存
+        store_location
         flash[:danger] = "ログインしてください。"
         redirect_to login_url
       end
