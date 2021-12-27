@@ -37,10 +37,16 @@ before_action :correct_user, only: [ :edit, :update]
     end
   end
   
+  def destroy
+    @user.destroy
+    flash[:success] = "#{@user.name}のデータを削除しました。"
+    redirect_to users_url
+  end
+  
   private
   
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email,:department, :password, :password_confirmation)
     end
     
     # beforeフィルター

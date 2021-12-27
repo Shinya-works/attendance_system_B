@@ -8,12 +8,25 @@
       <tr>
         <!--ActiveRecord::Base のクラスメソッドであり、内部的に I18n モジュールを利用-->
         <th><%= User.human_attribute_name :name %></th>
+        <th></th>
+        <th>所属</th>
+        <th>基本時間</th>
+        <th>指定勤務時間</th>
       </tr>
     </thead>
     
     <% @users.each do |user| %>
       <tr>
         <td><%= link_to user.name, user %></td>
+        <td><% if current_user.admin? && !current_user?(user) %>
+          <%= link_to "勤怠情報の編集", '#', class: "btn btn-default" %>
+          <%= link_to "削除", user, method: :delete,
+          data: { confirm: "削除してもよろしいですか。"},
+          class: "btn btn-default" %>
+          <% end %></td>
+        <td><%= user.department.present? ? user.department : "未所属" %></td>
+        <td><%= (user.basic_time) %></td>
+        <td><%= (user.work_time) %></td>
       </tr>
     <% end %>
   </table>

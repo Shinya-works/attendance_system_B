@@ -9,6 +9,9 @@ class User < ApplicationRecord
                     # 定義した条件で有効性を検証
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: true
+  validates :department, length: {in: 2..30}, allow_blank: true
+  validates :basic_time, presence: true
+  validates :work_time, presence: true
   # :passwordのハッシュ化と:password_confirmation使用可、authenticateメソッド使用可
   has_secure_password
   validates :password, presence: true, length: {minimum: 6}, allow_nil: true
