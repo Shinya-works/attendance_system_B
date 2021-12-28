@@ -8,6 +8,11 @@ before_action :correct_user, only: [ :edit, :update]
     @users = User.paginate(page: params[:page], per_page: 20)
   end
   
+  def show
+    @first_day = Date.current.beginning_of_month
+    @last_day = @first_day.end_of_month
+  end
+  
   def new
     @user = User.new
   end
@@ -17,18 +22,16 @@ before_action :correct_user, only: [ :edit, :update]
     if @user.save
       log_in @user
       flash[:success] = 'ユーザーを新規登録しました。'
-      redirect_to root_url
+      redirect_to current_user
     else
       render :new
     end
   end
   
   def edit
-    @user = User.find(1)
   end
   
   def update
-    @user = User.find(1)
     if @user.update_attributes(user_params)
       flash[:success] = 'ユーザー情報を更新しました。'
       redirect_to root_url
