@@ -38,7 +38,6 @@
 }
 
 // ユーザー一覧
-
 #table-users {
   td {
     vertical-align: middle;
@@ -46,6 +45,16 @@
 }
 
 // 勤怠表示ページ
+#table-attendances { 
+  th {
+    vertical-align: middle;
+    text-align: center;
+  }
+  td {
+    vertical-align: middle;
+    text-align: center;
+  }
+}
 
 /* error_messages*/
 #error_explanation {

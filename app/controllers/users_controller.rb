@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 before_action :set_user, only: [:show, :edit, :update, :destroy]  
 before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy]  
 before_action :correct_user, only: [ :edit, :update]  
+before_action :set_one_month, only: :show
   
   def index
     # ページネーションを判断できるオブジェクトに置き換える
@@ -9,8 +10,7 @@ before_action :correct_user, only: [ :edit, :update]
   end
   
   def show
-    @first_day = Date.current.beginning_of_month
-    @last_day = @first_day.end_of_month
+    @worked_sum = @attendances.where.not(started_at: nil?).count
   end
   
   def new
@@ -74,4 +74,8 @@ before_action :correct_user, only: [ :edit, :update]
       redirect_to root_url unless current_user?(@user)
     end
     
+    # システム管理権限所有かどうか判定します。
+    def admin_user
+      redirect_to root_url unless current_user.admin?
+    end
 end
