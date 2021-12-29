@@ -1,18 +1,19 @@
 <% provide(:title, 'edit_basic_info') %>
-<% provide(:class_text, 'edit_basic_info') %>
+<% provide(:class_text, 'basic_info') %>
 
 
-<h1 class="title h1">基本情報の更新</h1>
+<h1 class="title_h1">基本情報の更新</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_with(modal: @user, url: edit_basic_info_user_path(@user), local: true, method: :patch) do |f| %>
+    <%= form_with(model: @user, url: update_basic_info_user_path(@user), local: true, method: :patch) do |f| %>
+      <%= render 'shared/error_messages' %>
     
       <%= f.label :basic_time, class: "label-#{yield(:class_text)}" %>
-      <%= f.time_field :basic_time, class: "form_control" %>
+      <%= f.time_field :basic_time, class: "form-control" %>
       
       <%= f.label :work_time, class: "label-#{yield(:class_text)}" %>
-      <%= f.time_field :work_time, class: "form_control" %>
+      <%= f.time_field :work_time, class: "form-control" %>
 
       <%= f.submit "編集", class: "btn btn-block btn-primary btn-#{yield(:class_text)}" %>
     <% end %>
