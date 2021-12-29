@@ -19,7 +19,7 @@
       <tr>
         <td><%= link_to user.name, user %></td>
         <td><% if current_user.admin? && !current_user?(user) %>
-          <%= link_to "勤怠情報の編集", '#', class: "btn btn-default" %>
+          <%= link_to "勤怠情報の編集", edit_basic_info_user_path(@user), class: "btn btn-default" %>
           <%= link_to "削除", user, method: :delete,
           data: { confirm: "削除してもよろしいですか。"},
           class: "btn btn-default" %>
