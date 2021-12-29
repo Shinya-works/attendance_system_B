@@ -51,7 +51,7 @@
       <% @attendances.each do |day| %>
         <tr>
           <td><%= day.worked_on %></td>
-          <td><%= $days_of_the_week[day.worked_on.wday] %></td>
+          <td class=<%= "wday_#{day.worked_on.wday}"%>><%= $days_of_the_week[day.worked_on.wday] %></td>
           <td><%= day.started_at.hour if day.started_at.present? %></td>
           <td><%= day.started_at.min if day.started_at.present? %></td>
           <td>
