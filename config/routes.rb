@@ -11,7 +11,10 @@ Rails.application.routes.draw do
   
   
   resources :users do
-  
-    resources :attendances, only: :update
+    member do
+      get 'attendances/edit_one_month'
+      patch 'attendances/update_one_month'
+    end
+      resources :attendances, only: :update
   end
 end

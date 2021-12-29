@@ -52,30 +52,8 @@ before_action :set_one_month, only: :show
       params.require(:user).permit(:name, :email,:department, :password, :password_confirmation)
     end
     
-    # beforeフィルター
-    
-    # paramsハッシュからユーザーを取得
-    def set_user
-      @user = User.find(params[:id])
+    def basic_info_params
     end
     
-    # ログイン済みのユーザーか確認
-    def logged_in_user
-      unless logged_in?
-        # logged_in_userにはじかれてページ遷移する前にそのページを保存
-        store_location
-        flash[:danger] = "ログインしてください。"
-        redirect_to login_url
-      end
-    end
     
-    # アクセスしたユーザーが現在ログインしているユーザーか確認します
-    def correct_user
-      redirect_to root_url unless current_user?(@user)
-    end
-    
-    # システム管理権限所有かどうか判定します。
-    def admin_user
-      redirect_to root_url unless current_user.admin?
-    end
 end
