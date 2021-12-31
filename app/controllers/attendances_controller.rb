@@ -1,6 +1,7 @@
 class AttendancesController < ApplicationController
   before_action :set_user, only: [:edit_one_month, :update_one_month]
   before_action :logged_in_user, only: [:update, :edit_one_month]
+  before_action :correct_user_or_admin_user, only: [:update, :edit_one_month, :update_one_month]
   before_action :set_one_month, only: :edit_one_month
   
   
@@ -32,7 +33,12 @@ class AttendancesController < ApplicationController
     ActiveRecord::Base.transaction do
       attendances_params.each do |id, item|
         attendance = Attendance.find(id)
-        attendance.update_attributes!(item)
+          if (attendance[:finished_at].blank?) && (attendance[:started_at].present?)
+            flash[:danger] = "退社時間が必要です"
+            redirect_to attendances_edit_one_month_user_path(date: params[:date]) and return
+          else
+            attendance.update_attributes!(item)
+          end
       end
     end
       flash[:success] = "1か月ぶんの勤怠情報を更新しました。"

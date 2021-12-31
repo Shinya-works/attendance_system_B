@@ -1,13 +1,16 @@
 class UsersController < ApplicationController
 before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_basic_info, :update_basic_info]  
 before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy, :edit_basic_info, :update_basic_info]  
-before_action :correct_user, only: [ :edit, :update]
-before_action :admin_user, only: [ :index, :destroy, :edit_basic_info, :update_basic_info]
+before_action :correct_user_or_admin_user, only: :show
+before_action :admin_user, only: [:index, :destroy, :edit_basic_info, :update_basic_info]
 before_action :set_one_month, only: :show
   
   def index
     # ページネーションを判断できるオブジェクトに置き換える
     @users = User.paginate(page: params[:page], per_page: 20)
+    
+    @users = @users.where('name LIKE ?',"%#{params[:search]}%") if params[:search].present?
+    
   end
   
   def show
@@ -59,7 +62,6 @@ before_action :set_one_month, only: :show
       render :edit_basic_info
     end
   end
-
   
   private
   
@@ -68,7 +70,7 @@ before_action :set_one_month, only: :show
     end
     
     def basic_info_params
-      params.permit(:basic_time, :work_time)
+      params.require(:user).permit(:basic_time, :work_time)
     end
     
     

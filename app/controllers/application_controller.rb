@@ -21,6 +21,16 @@ class ApplicationController < ActionController::Base
       redirect_to login_url
     end
   end
+  
+  # 未ログインのユーザーか確認
+  def log_in_user
+    if logged_in?
+      # logged_in_userにはじかれてページ遷移する前にそのページを保存
+      store_location
+      flash[:danger] = "すでにログインしています。"
+      redirect_to root_url
+    end
+  end
     
     # アクセスしたユーザーが現在ログインしているユーザーか確認します
   def correct_user     
@@ -30,6 +40,10 @@ class ApplicationController < ActionController::Base
     # システム管理権限所有かどうか判定します。
   def admin_user
     redirect_to root_url unless current_user.admin?
+  end
+  
+  def correct_user_or_admin_user
+    redirect_to root_url unless current_user?(@user) || current_user.admin?
   end
   # ページ出力前に1ヶ月分のデータの存在を確認・セットします。
   def set_one_month 
@@ -42,7 +56,9 @@ class ApplicationController < ActionController::Base
   
     unless one_month.count == @attendances.count
       ActiveRecord::Base.transaction do
-        one_month.each { |day| @user.attendances.create!(worked_on: day) }
+        one_month.each do |day| 
+          @user.attendances.create!(worked_on: day)
+        end
       end
       @attendances = @user.attendances.where(worked_on: @first_day..@last_day).order(:worked_on)
     end
